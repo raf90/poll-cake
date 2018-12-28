@@ -1,9 +1,24 @@
 version: '3'
 services:
+  mongodb:
+    image: mongo
+    restart: always
+    ports:
+      - 5001:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - /private/mongo/poll-cake/data/db:/data/db
   server:
     build: ./server
     ports:
       - 5000:5000
+    environment:
+      DB_USERNAME: root
+      DB_PASSWORD: example
+      DB_PATH: 'mongodb'
+      DB_PORT: 27017
     volumes:
       - ./server/app.js:/srv/app/app.js
   client:
