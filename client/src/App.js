@@ -9,8 +9,8 @@ class App extends Component {
   }
   componentDidMount() {
     fetch('/api/')
-      .then((resp) => resp.text())
-      .then(text => this.setState({message: text}));
+      .then((resp) => resp.json())
+      .then(text => this.setState({message: text[0].desc}));
   }
   render() {
     return (
